@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../model/client.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class CommandeV extends StatefulWidget {
 }
 
 class _CommandeVState extends State<CommandeV> {
-  String ip = "192.168.1.14";
+  String ip = "192.168.1.17";
   late Future<List<Commande>> CMDattente;
   late Future<List<Commande>> CMDencours;
   late Future<List<Commande>> CMDtermine;
@@ -39,30 +40,47 @@ class _CommandeVState extends State<CommandeV> {
   }
 
   Future<List<Commande>> getDataCMDattente() async {
-    final res = await http.get(
+
+    var data = {
+      "id" : widget.User.idUser,
+    };
+    final res = await http.post(
       Uri.parse("http://$ip/FlutterMysql/getCmdenattente.php"),
+      body: jsonEncode(data),
     );
-    final data = json.decode(res.body);
-    List<Commande> CMD = List<Commande>.from(data.map((item) => Commande.fromJson(item)));
+
+
+    final news = json.decode(res.body);
+    List<Commande> CMD = List<Commande>.from(news.map((item) => Commande.fromJson(item)));
 
     return CMD;
   }
   Future<List<Commande>> getDataCMDencours() async {
-    final res = await http.get(
+
+    var data = {
+      "id" : widget.User.idUser,
+    };
+    final res = await http.post(
       Uri.parse("http://$ip/FlutterMysql/getCmdenCours.php"),
+      body: jsonEncode(data),
     );
-    final data = json.decode(res.body);
+
+    final news = json.decode(res.body);
     List<Commande> CMD = List<Commande>.from(
-        data.map((item) => Commande.fromJson(item)));
+        news.map((item) => Commande.fromJson(item)));
     return CMD;
   }
   Future<List<Commande>> getDataCMDterminer() async {
-    final res = await http.get(
+    var data = {
+      "id" : widget.User.idUser,
+    };
+    final res = await http.post(
       Uri.parse("http://$ip/FlutterMysql/getCmdterminer.php"),
+      body: jsonEncode(data),
     );
-    final data = json.decode(res.body);
+    final news = json.decode(res.body);
     List<Commande> CMD = List<Commande>.from(
-        data.map((item) => Commande.fromJson(item)));
+        news.map((item) => Commande.fromJson(item)));
     return CMD;
   }
 
@@ -119,6 +137,19 @@ class _CommandeVState extends State<CommandeV> {
             print(snapshot.error);
           }
           if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return Center(
+
+                  child: Column(
+                    children: [
+                      Text("tu attend quoi pour commander ?", style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 48, 73))),
+                      Lottie.asset('assets/icon/oiseau.json', height: 200, width: 200),
+                    ],
+                  ),
+
+
+              );
+            }
             return ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

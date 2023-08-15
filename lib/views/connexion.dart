@@ -13,7 +13,7 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  String ip = "192.168.1.14";
+  String ip = "192.168.1.17";
   int idUser= 0 ;
   String itemLogin = '';
   String itemPassword = '';
@@ -31,7 +31,6 @@ class _ConnexionState extends State<Connexion> {
         "Login" : itemLogin,
         "Password" : itemPassword,
       };
-        print(jsonEncode(data));
 
       try {
         var res = await http.post(Uri.parse(url),
