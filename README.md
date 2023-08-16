@@ -1,6 +1,8 @@
 # projetuto
 
-restaurant automatié ,vas faloir changer l addresse ip a chaque fois qu on change de wifi quand on mettra la webapp php en back 
+restaurant automatié , realiser par ida 
+
+c etais pas facile mais je l ai fait 
 
 ## Getting Started
 
