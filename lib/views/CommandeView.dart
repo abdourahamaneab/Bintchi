@@ -15,7 +15,7 @@ class CommandeV extends StatefulWidget {
 }
 
 class _CommandeVState extends State<CommandeV> {
-  String ip = "192.168.1.17";
+  String ip = "172.20.10.7";
   late Future<List<Commande>> CMDattente;
   late Future<List<Commande>> CMDencours;
   late Future<List<Commande>> CMDtermine;

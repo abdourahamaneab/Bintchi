@@ -13,7 +13,7 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  String ip = "192.168.1.17";
+  String ip = "172.20.10.7";
   int idUser= 0 ;
   String itemLogin = '';
   String itemPassword = '';

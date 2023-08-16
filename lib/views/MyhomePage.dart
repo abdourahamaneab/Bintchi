@@ -27,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //chaquz fois que je change de wifi je dois changer l ip
-  String ip ='192.168.1.17';
+  String ip ='172.20.10.7';
   List<Produit> selectedProduit = [];
   int _currentPageIndex = 0;
 List<Icon> items = const [
