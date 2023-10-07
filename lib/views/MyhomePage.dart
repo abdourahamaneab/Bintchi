@@ -27,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //chaquz fois que je change de wifi je dois changer l ip
-  String ip ='172.20.10.7';
+  String ip ='192.168.1.4';
   List<Produit> selectedProduit = [];
   int _currentPageIndex = 0;
 List<Icon> items = const [
@@ -145,206 +145,209 @@ List<Icon> items = const [
           RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: _handleRefresh,
-            child: ListView(
-              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics(),),
-              padding: const EdgeInsets.all(8),
-              children: [
+            
+            child: Expanded(
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics(),),
+                padding: const EdgeInsets.all(8),
+                children: [
 
-                SizedBox( height: 300,
-                  child: Image.asset("assets/logo-range/orange_transparent.png",
-                    height:200,
-                    width: 200,),
-                ),
-                //boisson
-                Row(children: [
-                  Container(padding: const EdgeInsets.all(5.0),
-                    color: const  Color.fromARGB(255,0,48,73),
-                    height: 50,
-                    margin: const EdgeInsets.all(15.0),),
-
-                  Text('BOISSON',  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 2,
-                      color:Color.fromARGB(255,0,48,73),
-                  ),), ],),
-                const SizedBox(height: 20),
-                Container(
-                  height: 200,
-                  child: FutureBuilder<List<Produit>>(
-                    future: _futureDataBoisson,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        print(snapshot.error);
-                        print("vérifie la requete (id)");
-
-                      }
-                      if
-                      (snapshot.hasData) {
-                        return Items(
-                            produits: snapshot.data!,
-                            selectedProducts: selectedProduit,
-                            onProductSelected: (produit) {
-                              setState(() {
-                                if (selectedProduit.contains(produit)) {
-                                  selectedProduit.remove(produit);
-                                } else {
-                                  selectedProduit.add(produit);
-                                }
-                              });
-                            }
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                  SizedBox( height: 300,
+                    child: Image.asset("assets/logo-range/orange_transparent.png",
+                      height:200,
+                      width: 200,),
                   ),
-                ),
-                const SizedBox(height: 20),
-                //Plat
-                Row(children: [
-                  Container(padding: const EdgeInsets.all(5.0),
-                    color: const  Color.fromARGB(255,0,48,73),
-                    height: 50,
-                    margin: const EdgeInsets.all(15.0),),
+                  //boisson
+                  Row(children: [
+                    Container(padding: const EdgeInsets.all(5.0),
+                      color: const  Color.fromARGB(255,0,48,73),
+                      height: 50,
+                      margin: const EdgeInsets.all(15.0),),
 
-                  Text('PLATS',  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 2,
-                      color: Color.fromARGB(255,0,48,73)
-                  ),),],),
-                const SizedBox(height: 20),
-                Container(
-                  height: 200,
-                  child: FutureBuilder<List<Produit>>(
-                    future: _futureDataPlat,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        print(snapshot.error);
-                        print("vérifie la requete (id)");
-                      }
-                      if (snapshot.hasData) {
-                        return Items(
-                            produits: snapshot.data!,
-                            selectedProducts: selectedProduit,
-                            onProductSelected: (produit) {
-                              setState(() {
-                                if (selectedProduit.contains(produit)) {
-                                  selectedProduit.remove(produit);
-                                } else {
-                                  selectedProduit.add(produit);
-                                }
-                              });
-                            }
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                    Text('BOISSON',  style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        height: 2,
+                        color:Color.fromARGB(255,0,48,73),
+                    ),), ],),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 200,
+                    child: FutureBuilder<List<Produit>>(
+                      future: _futureDataBoisson,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          print("vérifie la requete (id)");
+
+                        }
+                        if
+                        (snapshot.hasData) {
+                          return Items(
+                              produits: snapshot.data!,
+                              selectedProducts: selectedProduit,
+                              onProductSelected: (produit) {
+                                setState(() {
+                                  if (selectedProduit.contains(produit)) {
+                                    selectedProduit.remove(produit);
+                                  } else {
+                                    selectedProduit.add(produit);
+                                  }
+                                });
+                              }
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                //Dessert
-                Row(children: [
-                  Container(padding: const EdgeInsets.all(5.0),
-                    color: const  Color.fromARGB(255,0,48,73),
-                    height: 50,
-                    margin: const EdgeInsets.all(15.0),),
+                  const SizedBox(height: 20),
+                  //Plat
+                  Row(children: [
+                    Container(padding: const EdgeInsets.all(5.0),
+                      color: const  Color.fromARGB(255,0,48,73),
+                      height: 50,
+                      margin: const EdgeInsets.all(15.0),),
 
-                  Text('DESSERT',  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 2,
-                      color: Color.fromARGB(255,0,48,73)
-                  ),),
-                ],),
-                const SizedBox(height: 20),
-                Container(
-                  height: 200,
-                  child: FutureBuilder<List<Produit>>(
-                    future: _futureDataDessert,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        print(snapshot.error);
-                        print("vérifie la requete (id) ");
-                      }
-                      if (snapshot.hasData) {
-                        return Items(
-                            produits: snapshot.data!,
-                            selectedProducts: selectedProduit,
-                            onProductSelected: (produit) {
-                              setState(() {
-                                if (selectedProduit.contains(produit)) {
-                                  selectedProduit.remove(produit);
-                                } else {
-                                  selectedProduit.add(produit);
-                                }
-                              });
-                            }
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                    Text('PLATS',  style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        height: 2,
+                        color: Color.fromARGB(255,0,48,73)
+                    ),),],),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 200,
+                    child: FutureBuilder<List<Produit>>(
+                      future: _futureDataPlat,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          print("vérifie la requete (id)");
+                        }
+                        if (snapshot.hasData) {
+                          return Items(
+                              produits: snapshot.data!,
+                              selectedProducts: selectedProduit,
+                              onProductSelected: (produit) {
+                                setState(() {
+                                  if (selectedProduit.contains(produit)) {
+                                    selectedProduit.remove(produit);
+                                  } else {
+                                    selectedProduit.add(produit);
+                                  }
+                                });
+                              }
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                //Sandwich
-                Row(children: [
-                  Container(padding: const EdgeInsets.all(5.0),
-                    color: const Color.fromARGB(255,0,48,73),
-                    height: 50,
-                    margin: const EdgeInsets.all(15.0),),
+                  const SizedBox(height: 20),
+                  //Dessert
+                  Row(children: [
+                    Container(padding: const EdgeInsets.all(5.0),
+                      color: const  Color.fromARGB(255,0,48,73),
+                      height: 50,
+                      margin: const EdgeInsets.all(15.0),),
 
-                  Text('SANDWICH',  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      height: 2,
-                      color: Color.fromARGB(255,0,48,73)
-                  ),),
-                ],),            const SizedBox(height: 20),
-                Container(
-                  height: 200,
-                  child: FutureBuilder<List<Produit>>(
-                    future: _futureDataSandwich,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        print(snapshot.error);
-                        print("vérifie la requete (id)");
-                      }
-                      if (snapshot.hasData) {
-                        return Items(
-                            produits: snapshot.data!,
-                            selectedProducts: selectedProduit,
-                            onProductSelected: (produit) {
-                              setState(() {
-                                if (selectedProduit.contains(produit)) {
-                                  selectedProduit.remove(produit);
-                                } else {
-                                  selectedProduit.add(produit);
-                                }
-                              });
-                            }
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                    Text('DESSERT',  style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        height: 2,
+                        color: Color.fromARGB(255,0,48,73)
+                    ),),
+                  ],),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 200,
+                    child: FutureBuilder<List<Produit>>(
+                      future: _futureDataDessert,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          print("vérifie la requete (id) ");
+                        }
+                        if (snapshot.hasData) {
+                          return Items(
+                              produits: snapshot.data!,
+                              selectedProducts: selectedProduit,
+                              onProductSelected: (produit) {
+                                setState(() {
+                                  if (selectedProduit.contains(produit)) {
+                                    selectedProduit.remove(produit);
+                                  } else {
+                                    selectedProduit.add(produit);
+                                  }
+                                });
+                              }
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
+                  //Sandwich
+                  Row(children: [
+                    Container(padding: const EdgeInsets.all(5.0),
+                      color: const Color.fromARGB(255,0,48,73),
+                      height: 50,
+                      margin: const EdgeInsets.all(15.0),),
+
+                    Text('SANDWICH',  style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        height: 2,
+                        color: Color.fromARGB(255,0,48,73)
+                    ),),
+                  ],),            const SizedBox(height: 20),
+                  Container(
+                    height: 200,
+                    child: FutureBuilder<List<Produit>>(
+                      future: _futureDataSandwich,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          print("vérifie la requete (id)");
+                        }
+                        if (snapshot.hasData) {
+                          return Items(
+                              produits: snapshot.data!,
+                              selectedProducts: selectedProduit,
+                              onProductSelected: (produit) {
+                                setState(() {
+                                  if (selectedProduit.contains(produit)) {
+                                    selectedProduit.remove(produit);
+                                  } else {
+                                    selectedProduit.add(produit);
+                                  }
+                                });
+                              }
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
 
 
-              ],
+                ],
+              ),
             ),
           ),
 

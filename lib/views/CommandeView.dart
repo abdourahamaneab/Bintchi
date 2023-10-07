@@ -15,10 +15,10 @@ class CommandeV extends StatefulWidget {
 }
 
 class _CommandeVState extends State<CommandeV> {
-  String ip = "172.20.10.7";
+  String ip = "192.168.1.4";
   late Future<List<Commande>> CMDattente;
   late Future<List<Commande>> CMDencours;
-  late Future<List<Commande>> CMDtermine;
+  late Future<List<Commande>> CMDtermine; 
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   GlobalKey<RefreshIndicatorState>();

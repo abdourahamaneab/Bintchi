@@ -8,57 +8,56 @@ import 'package:projetuto/views/inscription.dart';
 class Connexion extends StatefulWidget {
   @override
   _ConnexionState createState() => _ConnexionState();
-
-
 }
 
 class _ConnexionState extends State<Connexion> {
-  String ip = "172.20.10.7";
-  int idUser= 0 ;
+  String ip = "192.168.1.4";
+  int idUser = 0;
   String itemLogin = '';
   String itemPassword = '';
   String nom = '';
   String prenom = '';
-  String num = '' ;
+  String num = '';
   bool visible = true;
   late Client User;
   // Fonction de connexion
   Future<int> connexion() async {
     if (itemLogin.isNotEmpty && itemPassword.isNotEmpty) {
-      var url  = "http://$ip/FlutterMysql/login.php";
+      var url = "http://$ip/FlutterMysql/login.php";
 
       var data = {
-        "Login" : itemLogin,
-        "Password" : itemPassword,
+        "Login": itemLogin,
+        "Password": itemPassword,
       };
 
       try {
-        var res = await http.post(Uri.parse(url),
-            headers: {"Content-Type": "application/json"},
-            body:jsonEncode(data),
+        var res = await http.post(
+          Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(data),
         );
         if (res.statusCode == 200) {
-
           Map<String, dynamic> responseData = json.decode(res.body);
           var result = responseData["in"];
-
+          print("voici le resultat de la requete");
+          print(result);
+          //montre moi le type de result
+          print(result.runtimeType);
           // recupere le resultat de la requete qui correspondra a 1 si l'utilisateur peut se connecter ou 0 si il doit creer un compte mais a c
 
-          print(result);
+
 
           if (result == "1") {
             // recupere les informations de l'utilisateur
-
-
+            print("tu dois etre connecter");
             var userData = responseData["user"];
-            idUser = userData["id_User"];
+            idUser = userData["id"];
             nom = userData["nom"];
             prenom = userData["prenom"];
             num = userData["numtel"];
             //montre moi le type de num
             print("voici le numero $num qui a pour type");
             print(num.runtimeType);
-
 
             //Bourse = userData["Bourse"];
 
@@ -74,17 +73,17 @@ class _ConnexionState extends State<Connexion> {
               numtel: num,
               //Bourse: int.parse(Bourse),
             );
-            //User.Bourse = Bourse;
             print(User);
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'BINTCHI', selectedProduits: [],User: User)));
-
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyHomePage(
+                        title: 'BINTCHI', selectedProduits: [], User: User)));
 
             print("Vous pouvez vous connecter");
             return 1; // Utilisateur peut se connecter
-
           } else {
-
             print("Créer un compte");
             return 0; // Utilisateur doit créer un compte
           }
@@ -95,6 +94,7 @@ class _ConnexionState extends State<Connexion> {
       } catch (e) {
         print("Erreur lors de la connexion : /n");
         print(e);
+
         return -1; // Erreur lors de la connexion
       }
     } else {
@@ -102,8 +102,6 @@ class _ConnexionState extends State<Connexion> {
       return -1; // Champs vides
     }
   }
-
-
 
   void initState() {
     super.initState();
@@ -114,7 +112,6 @@ class _ConnexionState extends State<Connexion> {
       login: '',
       password: 'test',
       numtel: '',
-      //Bourse: 0,
     );
   }
 
@@ -137,24 +134,23 @@ class _ConnexionState extends State<Connexion> {
                   width: 25,
                 ),
                 Icon(
-                    Icons.person,
-                  color: Color.fromARGB(255, 247, 127,0),
+                  Icons.person,
+                  color: Color.fromARGB(255, 247, 127, 0),
                 ),
                 SizedBox(
                   width: 10,
                 ),
-
                 Center(
                   child: TextField(
                     decoration: InputDecoration(
-                      constraints: BoxConstraints(
-                          maxWidth: 300.0, maxHeight: 40.0),
+                      constraints:
+                          BoxConstraints(maxWidth: 300.0, maxHeight: 40.0),
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 5.0, horizontal: 115.0),
                       labelText: 'login',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 0, 48, 73)),
-
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 0, 48, 73)),
                     ),
                     onChanged: (value) {
                       setState(() {
@@ -182,10 +178,8 @@ class _ConnexionState extends State<Connexion> {
                       visible = !visible;
                     });
                   },
-                  child: Icon(
-                    visible ? Icons.visibility_off : Icons.visibility,
-                    color: Color.fromARGB(255, 247, 127,0)
-                  ),
+                  child: Icon(visible ? Icons.visibility_off : Icons.visibility,
+                      color: Color.fromARGB(255, 247, 127, 0)),
                 ),
                 SizedBox(
                   width: 10,
@@ -194,14 +188,14 @@ class _ConnexionState extends State<Connexion> {
                   child: TextField(
                     obscureText: visible,
                     decoration: InputDecoration(
-                      constraints: BoxConstraints(
-                          maxWidth: 300.0, maxHeight: 40.0),
+                      constraints:
+                          BoxConstraints(maxWidth: 300.0, maxHeight: 40.0),
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 5.0, horizontal: 115.0),
                       labelText: 'password',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 0, 48, 73)),
-
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 0, 48, 73)),
                     ),
                     onChanged: (value) {
                       setState(() {
@@ -224,7 +218,8 @@ class _ConnexionState extends State<Connexion> {
                 padding: MaterialStateProperty.all<EdgeInsets>(
                   EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255,247,127,0)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 247, 127, 0)),
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -233,18 +228,21 @@ class _ConnexionState extends State<Connexion> {
                 ),
               ),
               onPressed: () {
-                connexion().then((value) {
-                  if (value == 1) {
-                    // Utilisateur peut se connecter
-                    print("Vous pouvez vous connecter");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'BINTCHI', selectedProduits: [],User: User,)));
-                  } else if (value == 0) {
-                    // Utilisateur doit créer un compte
-                    print("Créer un compte");
-                  } else {
-                    print("Erreur lors de la connexion");
+                connexion().
+                then((value) => {
+                  if(value == 1){
+                    print("Vous pouvez vous connecter"),
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyHomePage(
+                                title: 'BINTCHI', selectedProduits: const [], User: User)))
                   }
-                 });},
+                  }
+                );
+
+
+              },
               child: Text('Login', style: TextStyle(color: Colors.white)),
             ),
             SizedBox(
@@ -264,13 +262,16 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute( builder: (context) => Inscription()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Inscription()));
                   },
                   child: Text(
                     'Inscrivez-vous',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                        color:Color.fromARGB(255,247,127,0), fontWeight: FontWeight.bold,),
+                      color: Color.fromARGB(255, 247, 127, 0),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
